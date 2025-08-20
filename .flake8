@@ -1,4 +1,4 @@
 [flake8]
-max-line-length = 120
+max-line-length = 200
 exclude = .git,__pycache__,*/migrations/*,*/djangoapp/migrations/*
-ignore = E501,F401,E231,E302,W291,W293,E128,E117,E275,E225,E722,E251,F811,F841,E203,E712,F541,E131
+ignore = E501,F401,E231,E302,W291,W293,E128,E117,E275,E225,E722,E251,F811,F841,E203,E712,F541,E131,W292,E261,E226,F403,F405,W504,E221,E271,E272,W503

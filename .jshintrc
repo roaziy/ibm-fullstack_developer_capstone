@@ -5,6 +5,7 @@
     "sub": true,
     "laxcomma": true,
     "laxbreak": true,
+    "-W069": false,
     "globals": {
         "console": true
     }
