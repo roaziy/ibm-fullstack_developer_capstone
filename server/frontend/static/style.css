@@ -124,3 +124,64 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+/* Contact page styles */
+.contact-info h3 {
+  color: #4a90e2;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact-info p {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.contact-info a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.dealership-image {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.dealership-image img {
+  width: 100%;
+  height: auto;
+}
+
+.contact-customer-icon {
+  width: 150px;
+  height: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* Contact card layout */
+.contact-card {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 0;
+}
+
+.contact-left-column {
+  width: 50%;
+  padding-right: 15px;
+}
+
+.contact-right-column {
+  width: 50%;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
