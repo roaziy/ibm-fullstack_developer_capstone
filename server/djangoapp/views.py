@@ -99,10 +99,21 @@ def get_dealer_reviews(request, dealer_id):
     if(dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
+        # If reviews is None or empty, return empty list
+        if not reviews:
+            return JsonResponse({"status":200,"reviews":[]})
         for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            review_detail['sentiment'] = response['sentiment']
+            try:
+                response = analyze_review_sentiments(review_detail['review'])
+                if response and 'sentiment' in response:
+                    review_detail['sentiment'] = response['sentiment']
+                else:
+                    # Default to neutral if sentiment analysis fails
+                    review_detail['sentiment'] = 'neutral'
+            except Exception as e:
+                logger.error(f"Error analyzing sentiment: {e}")
+                # Default to neutral if sentiment analysis fails
+                review_detail['sentiment'] = 'neutral'
         return JsonResponse({"status":200,"reviews":reviews})
     else:
         return JsonResponse({"status":400,"message":"Bad Request"})

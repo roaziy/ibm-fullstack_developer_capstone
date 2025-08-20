@@ -2,8 +2,12 @@
 # import requests
 import os
 from dotenv import load_dotenv
+import logging
 
 import requests 
+
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -25,20 +29,45 @@ def get_request(endpoint, **kwargs):
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
-        return response.json()
-    except:
+        result = response.json()
+        print(f"Response from {request_url}: {result}")
+        return result
+    except Exception as e:
         # If any error occurs
-        print("Network exception occurred")
+        print(f"Network exception occurred: {e}")
+        return []
 
 def analyze_review_sentiments(text):
     request_url = sentiment_analyzer_url+"analyze/"+text
     try:
         # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
+        response = requests.get(request_url, timeout=1)  # Add a short timeout
         return response.json()
     except Exception as err:
-        print(f"Unexpected {err=}, {type(err)=}")
-        print("Network exception occurred")
+        # Just log to debug level rather than printing to console
+        logger.debug(f"Sentiment analysis service unavailable")
+        
+        # Simple keyword-based sentiment analysis as fallback
+        text_lower = text.lower()
+        
+        # Positive keywords
+        positive_words = ['happy', 'great', 'excellent', 'good', 'best', 'amazing', 'love', 
+                         'wonderful', 'fantastic', 'dream', 'perfect', 'awesome']
+        # Negative keywords
+        negative_words = ['bad', 'terrible', 'awful', 'worst', 'poor', 'disappointing', 
+                         'hate', 'horrible', 'unfortunate', 'mediocre', 'regret']
+        
+        # Count positive and negative words
+        positive_count = sum(1 for word in positive_words if word in text_lower)
+        negative_count = sum(1 for word in negative_words if word in text_lower)
+        
+        # Determine sentiment based on word counts
+        if positive_count > negative_count:
+            return {"sentiment": "positive"}
+        elif negative_count > positive_count:
+            return {"sentiment": "negative"}
+        else:
+            return {"sentiment": "neutral"}
 
 def post_review(data_dict):
     request_url = backend_url+"/insert_review"
