@@ -1,5 +1,11 @@
 {
     "esversion": 8,
     "asi": true,
-    "node": true
+    "node": true,
+    "sub": true,
+    "laxcomma": true,
+    "laxbreak": true,
+    "globals": {
+        "console": true
+    }
 }
