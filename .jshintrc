@@ -8,19 +8,5 @@
     "-W069": false,
     "globals": {
         "console": true
-    },
-    "relaxing": {
-        "asi": true,
-        "boss": true,
-        "eqnull": true,
-        "evil": true,
-        "expr": true,
-        "loopfunc": true,
-        "shadow": true,
-        "sub": true,
-        "supernew": true,
-        "laxbreak": true,
-        "laxcomma": true,
-        "validthis": true
     }
 }
